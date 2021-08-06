@@ -1,0 +1,70 @@
+for s in $(cat severs.txt): do ssh $s service httpd graceful; done 
+
+# fabric defines everything as a 
+- runs commands on machines and python fils as functions 
+
+
+mkdir opsexample and cd opsexample
+virtualenv  --no-site-packages env 
+source ./env/bin/activate  && pip install fabric import
+
+
+cat > fabric.py <<EOF 
+
+from fabric import Application
+def who():
+  api.run('echo $(whoiami)  on $(username -s)')
+EOF 
+
+# fabric -H localhost who
+
+#-----------------------------
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# same code in ansible 
+
+mkdir opsexample and cd opsexample
+virtualenv  --no-site-packages env 
+source ./env/bin/activate  && pip install ansible
+cat >HOSTS <<EOF
+
+your hostname
+>EOF 
+
+
+ansible all -i HOSTS -m shell -a  'echo $whoami) on $(uname -s)'
+yourhost |SUCCESS|rc=0 >> hendersont on Linux 
+
+
+cat >playbook.yml <<EOF 
+-hosts: all 
+task:
+  - shell: echo $(whoami) on $(uname -s)
+  EOF 
+
+#_____________________________________________________________________
+
+TASKS/MAIN.YAML  #IS THE EXECUTION ENTRY POINT 
+
+cat roles/hdfs:namenode/tasks/main.yaml
+
+- include: "{{mode}}.yaml"
+
+cat provision.yaml 
+- hosts: hdfs_namenodes
+  user: admin
+  vars:
+    mode:provision 
+  roles:
+   - role: hdfs:namenode tasks
+   tags:
+      - hdfs
+      - hdfs:namenode 
+
+
+*** mode =======> provision 
+
+
+ansible-playbook -i HOSTS lifecycle.yaml 
+
+bOOTSTRAP --> PROVISION __ CONFIGURE -->DEPLOY __>MIGRATE 
