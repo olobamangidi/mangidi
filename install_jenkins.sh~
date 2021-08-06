@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "Docstring  missing in this file"
-
 # OpenJDK 8 package:
 
 sudo yum install java-1.8.0-openjdk-devel -y 
